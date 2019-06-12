@@ -1,0 +1,1000 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "Server endpoint for Casper project. Each of the resources below has multiple endpoints which allows end users and developers to access the Gunther API. This server allows you can use the api key  \"special-key\" to test the authorization filters",
+        "termsOfService": "http://localhost",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "",
+            "url": ""
+        },
+        "version": "0.0.1"
+    },
+    "host": "localhost:9000",
+    "basePath": "/v1/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/carts": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Get all carts",
+                "description": "Returns all carts.",
+                "operationId": "get.carts",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all carts.",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching carts.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/{id}": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Retrieve a specific existing cart",
+                "description": "Returns cart based on a specific ID",
+                "operationId": "get.cart.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific cart that needs to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve cart based on a specific ID",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching cart.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Delete a specific existing cart",
+                "description": "Deletes cart based on a specific ID",
+                "operationId": "delete.cart.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific cart that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error deleting cart item",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}/cart": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Retrieve an existing cart for user",
+                "description": "Returns cart based on a specific user ID",
+                "operationId": "get.cart.for.user.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user for cart to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve cart based on a specific user ID",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching cart.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}/product/{productId}/qty/{quantity}": {
+            "get": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Edit an existing cart for user",
+                "description": "Edit cart based on a specific user ID",
+                "operationId": "edit.cart.for.user.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user for cart to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "ProductId in cart to be edited",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "quantity",
+                        "in": "path",
+                        "description": "Quanty to be edited",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Edit cart based on a specific user ID",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching cart.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/{userId}/add": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Create a cart",
+                "description": "Creates a new cart",
+                "operationId": "create.cart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "Unique Id of user for which cart is to be created",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "List of user cart",
+                        "schema": {
+                            "$ref": "#/definitions/Cart"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating cart",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/{id}/add/{itemId}": {
+            "post": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Creates a cart item",
+                "description": "Creates a new cart item",
+                "operationId": "create.cart.item",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific cart that needs to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "description": "ID of specific product to be added to the cart",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "List of cart",
+                        "schema": {
+                            "$ref": "#/definitions/CartItem"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating cart",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/carts/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Cart"
+                ],
+                "summary": "Delete a specific existing cart item",
+                "description": "Deletes cart item based on a specific ID",
+                "operationId": "delete.cart.item.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific cart item that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error deleting cart item",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get all orders",
+                "description": "Returns all orders.",
+                "operationId": "get.orders",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all orders.",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching order.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{id}/valid": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Verifies if valid order ID",
+                "description": "Checks if order is present in current ordered items in DB",
+                "operationId": "validate.order.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific order that needs to be verified",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Verifies if valid order ID",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching order.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{id}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Retrieve a specific existing order",
+                "description": "Returns an order based on a specific order ID",
+                "operationId": "get.order.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific order that needs to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve order based on a specific order ID",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching order.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Delete a specific existing order",
+                "description": "Deletes order based on a specific order ID",
+                "operationId": "delete.order.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific order that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating order",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}/orders": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Retrieve a existings order for user",
+                "description": "Returns all orders based on a specific user ID",
+                "operationId": "get.orders.for.user.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user for orders to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve order based on a specific user ID",
+                        "schema": {
+                            "$ref": "#/definitions/Order"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching order.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/add": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create a order",
+                "description": "Creates a new order",
+                "operationId": "create.order",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "formData",
+                        "description": "Unique Id of user requesting an order",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "formData",
+                        "description": "Total amount of order",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "transactionId",
+                        "in": "formData",
+                        "description": "Transaction Id assocaited with Stripe",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Displays new order created",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating order",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{id}/add/{itemId}": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Creates a order item",
+                "description": "Creates a new order item",
+                "operationId": "create.order.item",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific order that needs to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "description": "ID of specific product to be added to the order",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "List of order",
+                        "schema": {
+                            "$ref": "#/definitions/OrderItem"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating order",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/orders/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Delete a specific existing order item",
+                "description": "Deletes order item based on a specific ID",
+                "operationId": "delete.order.item.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific order item that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error deleting order item",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all products",
+                "description": "Returns all products.",
+                "operationId": "get.products",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all products.",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching products.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Retrieve a specific existing product",
+                "description": "Returns product based on a specific ID",
+                "operationId": "get.product.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific product that needs to be retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve product based on a specific ID",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching products.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a specific existing product",
+                "description": "Deletes product based on a specific ID",
+                "operationId": "delete.product.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific product that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating product",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/add": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a product",
+                "description": "Creates a new product",
+                "operationId": "create.product",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Name of product to be created",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "Product description",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "price",
+                        "in": "formData",
+                        "description": "Price of product to be created",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "imageurl",
+                        "in": "formData",
+                        "description": "Image url of product to be created",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "Product image file to upload",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of products",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating product",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Address": {
+            "required": [
+                "user_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique address identifier",
+                    "type": "string"
+                },
+                "phone_number": {
+                    "description": "Phone number related to existing address",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "Country related to existing address",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "State related to existing address",
+                    "type": "string"
+                },
+                "zip_code": {
+                    "description": "Zip code related to existing address",
+                    "type": "string"
+                },
+                "address_line_1": {
+                    "description": "Address line 1 related to existing address",
+                    "type": "string"
+                },
+                "address_line_2": {
+                    "description": "Address line 2 related to existing address",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Address"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "Cart": {
+            "required": [
+                "user_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique cart identifier",
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "User_id related to existing cart",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Cart"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "CartItem": {
+            "required": [
+                "cart_id",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique cart item identifier",
+                    "type": "string"
+                },
+                "cart_id": {
+                    "description": "Unique cart Id related to existing cart item",
+                    "type": "string"
+                },
+                "product_id": {
+                    "description": "Unique product Id related to existing cart item",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "Amount of cart item in cart",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "CartItem"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "Order": {
+            "required": [
+                "user_id",
+                "total_paid",
+                "stripe_transaction_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique order identifier",
+                    "type": "string"
+                },
+                "user_id": {
+                    "description": "User_id related to existing order",
+                    "type": "string"
+                },
+                "total_paid": {
+                    "description": "Total amount paid for order",
+                    "type": "string"
+                },
+                "stripe_transaction_id": {
+                    "description": "Transaction id related to existing order",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Order"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "OrderItem": {
+            "required": [
+                "order_id",
+                "product_id",
+                "file_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique order item identifier",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "Unique order Id related to existing order item",
+                    "type": "string"
+                },
+                "product_id": {
+                    "description": "Unique product Id related to existing order item",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "Unique file Id related to existing order product_id",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "CartItem"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "Product": {
+            "required": [
+                "name",
+                "description",
+                "price",
+                "imageurl",
+                "file_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique product identifier",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Product name",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Product description",
+                    "type": "string"
+                },
+                "price": {
+                    "description": "Product price",
+                    "type": "string"
+                },
+                "imageurl": {
+                    "description": "Product image url",
+                    "type": "string"
+                },
+                "file_id": {
+                    "description": "Product file_id",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Product"
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "",
+        "url": ""
+    }
+}
